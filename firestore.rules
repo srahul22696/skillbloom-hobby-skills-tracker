@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function owns(uid) { return signedIn() && request.auth.uid == uid; }
+    match /users/{uid} {
+      allow read, write: if owns(uid);
+      match /{document=**} { allow read, write: if owns(uid); }
+    }
+    match /posts/{postId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid
+        && ((request.resource.data.content is string && request.resource.data.content.size() >= 3
+        && request.resource.data.content.size() <= 500) || (request.resource.data.text is string
+        && request.resource.data.text.size() >= 3 && request.resource.data.text.size() <= 500));
+      allow update: if signedIn() && resource.data.userId == request.auth.uid
+        && request.resource.data.userId == resource.data.userId
+        && ((request.resource.data.content is string && request.resource.data.content.size() >= 3
+        && request.resource.data.content.size() <= 500) || (request.resource.data.text is string
+        && request.resource.data.text.size() >= 3 && request.resource.data.text.size() <= 500));
+      allow delete: if signedIn() && resource.data.userId == request.auth.uid;
+      match /comments/{commentId} {
+        function parentExists() { return exists(/databases/$(database)/documents/posts/$(postId)); }
+        allow read: if signedIn() && parentExists();
+        allow create: if signedIn() && parentExists() && request.resource.data.userId == request.auth.uid
+          && ((request.resource.data.content is string && request.resource.data.content.size() > 0
+          && request.resource.data.content.size() <= 500) || (request.resource.data.text is string
+          && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 500));
+        allow update, delete: if signedIn() && parentExists() && resource.data.userId == request.auth.uid;
+      }
+      match /likes/{uid} {
+        function parentExists() { return exists(/databases/$(database)/documents/posts/$(postId)); }
+        allow read: if signedIn() && parentExists();
+        allow create: if signedIn() && parentExists() && request.auth.uid == uid && request.resource.data.userId == uid;
+        allow delete: if signedIn() && parentExists() && request.auth.uid == uid;
+      }
+    }
+  }
+}

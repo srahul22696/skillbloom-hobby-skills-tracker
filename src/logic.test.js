@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { calculateStreak, cleanText, progressPercent, validEmail, validPassword, validateSession } from './logic.js';
+
+test('normalizes compatibility characters and removes control characters',()=>assert.equal(cleanText('  Ａda\u0000 Lovelace  '),'Ada Lovelace'));
+test('rejects malformed or overlong email addresses',()=>{assert.equal(validEmail('a@b.co'),true);assert.equal(validEmail('bad address'),false);assert.equal(validEmail(`${'a'.repeat(250)}@b.co`),false)});
+test('requires a sufficiently strong password and caps unusual lengths',()=>{assert.equal(validPassword('StrongPass1'),true);assert.equal(validPassword('short'),false);assert.equal(validPassword('alllowercase123'),false);assert.equal(validPassword('A'.repeat(129)+'a1'),false)});
+test('rejects invalid session duration, date, and empty activity',()=>{assert.match(validateSession({minutes:'0',practicedAt:'2026-01-01',activity:'work'}),/minutes/);assert.match(validateSession({minutes:'30',practicedAt:'not a date',activity:'work'}),/date/);assert.match(validateSession({minutes:'30',practicedAt:new Date().toISOString(),activity:'  '}),/description/)});
+test('rejects impossible calendar dates and every future calendar day',()=>{assert.match(validateSession({minutes:'10',practicedAt:'2026-02-30',activity:'practice'}),/date/);const tomorrow=new Date();tomorrow.setDate(tomorrow.getDate()+1);const future=`${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,'0')}-${String(tomorrow.getDate()).padStart(2,'0')}`;assert.match(validateSession({minutes:'10',practicedAt:future,activity:'practice'}),/future/)});
+test('handles invalid targets and caps completion at 100%',()=>{assert.equal(progressPercent(2,0),0);assert.equal(progressPercent('x',2),0);assert.equal(progressPercent(12,10),100);assert.equal(progressPercent(1,4),25)});
+test('counts consecutive days ending today or yesterday, but not older activity',()=>{const now=new Date('2026-09-28T10:00:00');const sessions=[{practicedAt:'2026-09-28T08:00:00'},{practicedAt:'2026-09-27T08:00:00'},{practicedAt:'2026-09-26T08:00:00'}];assert.equal(calculateStreak(sessions,now),3);assert.equal(calculateStreak([{practicedAt:'2026-09-25T08:00:00'}],now),0)});

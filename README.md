@@ -22,21 +22,6 @@ The full course brief is larger: REST API endpoints/Cloud Functions, follows, re
 - Cloud Firestore sync with user-owned records and a shared feed; per-user likes/comments.
 - Owner-scoped image uploads restricted to supported image MIME types and 10 MiB.
 
-## Releases
-
-No formal versioned release has been published yet. The latest project code is on the `main` branch.
-
-## Deployments
-
-- **Live demo:** https://skillbloom-wku9.onrender.com
-- **Host:** Render Static Site
-- **Deploy setup:** [`render.yaml`](render.yaml). This public-repository Blueprint requires a manual sync after code changes.
-- The live demo currently uses synthetic local data. Configure Firebase to enable real authentication, cloud sync, and image uploads.
-
-## Packages
-
-No package has been published to GitHub Packages or npm. Skillbloom is currently distributed as a web app; use the repository instructions to run it locally.
-
 ## Architecture target
 
 ```text

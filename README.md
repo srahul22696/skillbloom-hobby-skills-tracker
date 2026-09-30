@@ -74,7 +74,7 @@ The included [`render.yaml`](render.yaml) defines a Render Static Site with `npm
 3. Enter the Firebase web-app config values. These are browser-visible project identifiers, not Admin SDK secrets. Never add service-account credentials to a Vite `VITE_*` variable.
 4. Add the deployed Render domain to Firebase Authentication's authorized domains and verify Auth, Firestore rules, and Storage rules using synthetic accounts.
 
-Render automatically builds and deploys from the connected branch. Static-site environment variables are applied at build time, so changing Firebase configuration triggers a rebuild.
+The live static site was deployed from the public GitHub repository. This Blueprint does not have a Git provider connection, so new commits need a manual Blueprint sync. Static-site environment variables are applied at build time. The public demo currently runs with synthetic local data because no Firebase project configuration was provided; authentication, Firestore sync, and Storage uploads require configuring the six Firebase web-app values first.
 
 ## GitHub
 
@@ -85,7 +85,7 @@ git init
 git add .
 git commit -m "Build Skillbloom hobby and skills tracker"
 git branch -M main
-git remote add origin https://github.com/<your-username>/skillbloom-hobby-skills-tracker.git
+git remote add origin https://github.com/srahul22696/skillbloom-hobby-skills-tracker.git
 git push -u origin main
 ```
 
@@ -125,30 +125,55 @@ The project models a cross-device learning companion: Firebase Authentication es
 
 ### LinkedIn
 
-I’ve been building **Skillbloom**, an online hobby and skills tracker designed to make consistent practice feel more encouraging.
+🚀 **Project Completed | Skillbloom: Online Hobby & Skills Tracker with Community Sharing**
 
-The project brings together user profiles, authentication, skill tracking, practice logs, streaks, measurable goals, community posts, comments, likes, and image storage. I focused on responsive UI, defensive input handling, progress calculations, Firebase security rules, and a Render deployment setup.
+Excited to share **Skillbloom**, a hobby and skills tracker designed to help people stay consistent, see their progress, and share what they are learning.
 
-This is an active course project: Firebase authentication, database synchronization, community interactions, and image uploads are implemented. REST APIs/Functions, notifications, moderation, and emulator-backed authorization tests are still on my roadmap. Building it has helped me connect product workflows with cloud security and data design.
+The project brings together:
+🌱 Skill profiles, categories, levels, and practice targets
+📝 Practice logs with date and duration validation
+🔥 Streaks, weekly practice summaries, and measurable goals
+👥 Community feed with likes, comments, and image sharing
+🔐 Firebase Authentication and owner-scoped Firestore/Storage rules
+☁️ React + Vite frontend deployed on Render
+📱 Responsive desktop and mobile layouts
+🧪 Automated edge-case tests for validation and progress calculations
 
-Next up: completing the Firebase project setup, deploying the live site on Render, and adding a REST API layer.
+This project helped me strengthen my skills in **Cloud Computing, SaaS product design, React, Firebase Authentication, cloud databases, media storage, security rules, cloud deployment, and testing**. I also explored how APIs, notifications, and a scalable backend can extend a community platform.
 
-🌐 Render demo: [add after deployment]
+The live link is a browser-based demo with synthetic data. Firebase Auth, Firestore, and Storage integration are in the code, but a Firebase project still needs to be configured before real sign-in and cloud sync can be used. REST APIs/Cloud Functions, live notifications, moderation, and emulator-backed security tests are future work.
 
-💻 GitHub repository: [add repository URL]
+A special thank you to **Umesh Yadav Sir** for his guidance and encouragement. I’m also grateful to **EDC, IIIT Delhi**, in collaboration with **Indian Institute of Placement**, for the opportunity to learn and build.
 
-#CloudComputing #React #Firebase #WebDevelopment #StudentProject
+**🌐 Live Demo:**  
+https://skillbloom-wku9.onrender.com
+
+**💻 GitHub Repository:**  
+https://github.com/srahul22696/skillbloom-hobby-skills-tracker
+
+#CloudComputing #SaaS #React #Firebase #Authentication #CloudDatabase #MediaStorage #CommunityPlatform #CloudDeployment #WebDevelopment #StudentProject #BuildInPublic
 
 ### Instagram
 
-Meet **Skillbloom** 🌱 — a little space for the things you’re learning.
+🚀 **Project Completed | Skillbloom** 🌱
 
-Track skills, log practice, set tiny goals, and celebrate the small wins along the way. Built with React, Firebase Auth, Firestore, and Firebase Storage. Local demo mode included; Render link coming after deployment.
+A little space for the things you’re learning. Track your skills, log practice, set goals, build streaks, and share your progress with a community. ✨
 
-🌐 Demo: [add Render URL]
+🌱 Skill and user profiles  
+📝 Practice logs + validation  
+🔥 Goals, streaks + progress  
+👥 Community posts, likes + comments  
+🔐 Firebase Auth + cloud security rules  
+☁️ React + Vite, deployed on Render  
+📱 Responsive design  
 
-💻 GitHub: [add repository URL]
+Built as a Cloud Computing project exploring authentication, cloud databases, media storage, social features, APIs, notifications, and cloud deployment.
 
-Progress doesn’t have to be perfect. It just has to be yours. ✨
+The live demo currently uses synthetic data. Firebase project setup is still needed to enable real sign-in, cloud database sync, and image uploads.
 
-#Skillbloom #BuildInPublic #CloudComputing #ReactJS #LearningJourney #StudentDeveloper
+A special thank you to [@umeshcnyadav](https://www.instagram.com/umeshcnyadav/) sir for his guidance. Grateful to [@edc_iitd](https://www.instagram.com/edc_iitd/) and Indian Institute of Placement for the opportunity to learn and build. 🙏
+
+🌐 Demo: https://skillbloom-wku9.onrender.com  
+💻 GitHub: https://github.com/srahul22696/skillbloom-hobby-skills-tracker
+
+#Skillbloom #CloudComputing #SaaS #ReactJS #Firebase #CommunityPlatform #CloudDeployment #StudentDeveloper #LearningJourney #BuildInPublic

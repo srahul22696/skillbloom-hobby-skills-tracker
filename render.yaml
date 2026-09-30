@@ -4,7 +4,6 @@ services:
     runtime: static
     buildCommand: npm ci && npm run build
     staticPublishPath: ./dist
-    pullRequestPreviews: true
     routes:
       - type: rewrite
         source: /*
